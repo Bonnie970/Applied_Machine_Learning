@@ -1,4 +1,6 @@
 # COMP551-AML
+## Project 2: Language classification
+./Assignment2/README.md
 ## Project 3: Modified MNIST classification 
 - CNN: 
 98.7% accuracy achieved using modified VGG16 net (library dependency: keras)
