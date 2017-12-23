@@ -1,0 +1,56 @@
+*author: bonnie hu
+*NOTICE: you need to buy bonnie a sandwich for using this instruction 
+
+#MAKE SURE UBUNTU 16
+    2  lsb-release -a
+    4  sudo apt-get update
+#mount bucket for faster file transfer 
+    7  export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s`
+    8  echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
+    9  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   12  sudo apt-get update
+   13  sudo apt-get install gcsfuse
+   14  mkdir drive
+   16  gcsfuse comp551proj3 drive
+   18  ls drive
+#install bunch of pkgs
+   21  sudo apt-get install unzip
+   22  sudo apt-get update
+   24  unzip drive/data.zip -d .
+   30  sudo apt-get install python-pip
+   31  pip install sklearn
+   32  pip install --upgrade pip
+   34  sudo pip install numpy
+   36  sudo pip install scipy
+
+#install cuda driver for gpu
+   43  curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+   44  sudo dpkg -i cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
+   52  sudo apt-get update
+   53  sudo apt-get install cuda-8-0
+   54  sudo add-apt-repository ppa:graphics-drivers/ppa 
+   55  sudo apt update
+   56  export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}} 
+   57  export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+   66  sudo pip install tensorflow
+   67  pip list | grep tensorflow  #check version of tensorflow, make sure cudnn version matches
+   
+#install cudnn, tensorflow lib for gpu
+   74  CUDNN_TAR_FILE="cudnn-8.0-linux-x64-v6.0.tgz"
+   75  wget http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/${CUDNN_TAR_FILE}
+   76  tar -xzvf ${CUDNN_TAR_FILE}
+   77  sudo cp -P cuda/include/cudnn.h /usr/local/cuda-8.0/include
+   78  sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-8.0/lib64/
+   79  sudo chmod a+r /usr/local/cuda-8.0/lib64/libcudnn*
+   80  export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+   81  export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+   82  ls
+   83  sudo apt-get install libcupti-dev
+   85  sudo pip install tensorflow-gpu
+#check driver installed correctly 
+   86  nvidia-smi
+#run your tensorflow based code
+   87  python xxx.py 
+   88  nvidia-smi  # YOU SHOULD SEE YOUT PYTHON PID IN THE OUTPUT OF THIS CMD, meaning GPU is using to run your code 
+
+
