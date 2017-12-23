@@ -1,5 +1,9 @@
 # LangClassifiers-P2
 
+## git repo: 
+- code: https://github.com/ch-andrei/LangClassifiers-P2.
+- data: https://www.kaggle.com/c/comp551-language-classification/data
+
 All of the code was implemented on Python 3.6 and Sklearn 0.19.
 
 classifiers.py implements most of the classification methods, namely:
